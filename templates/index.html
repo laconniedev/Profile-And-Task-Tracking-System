@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile and Task Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">🦔</span>
+    <div>
+      <h1>Dashboard</h1>
+    </div>
+  </div>
+  <div class="topbar-meta" id="topbarMeta"></div>
+</header>
+
+<main>
+
+  <!-- class setup -->
+  <section id="setupSection" class="setup">
+    <div class="setup-card">
+      <h2>Create a class!</h2>
+      <p class="muted">Each student will be assigned an animal name automatically. No real names are stored.</p>
+      <form id="setupForm">
+        <label for="className">Cohort Title</label>
+        <input type="text" id="className" placeholder="e.g. Room 12, Period 3" required>
+
+        <label for="studentCount">Student Count</label>
+        <input type="number" id="studentCount" min="1" max="60" placeholder="e.g. 24" required>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+      <p class="setup-error" id="setupError" hidden></p>
+
+      <div class="existing-classes" id="existingClasses" hidden>
+        <h3>Or open an existing cohort</h3>
+        <div class="chip-row" id="classChips"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- dashboard -->
+  <section id="dashboardSection" class="dashboard" hidden>
+    <div class="dashboard-head">
+      <div>
+        <h2 id="dashClassName">Class</h2>
+        <p class="muted" id="dashDate">—</p>
+      </div>
+      <button class="btn btn-ghost" id="switchClassBtn">Switch class</button>
+    </div>
+
+    <div class="legend">
+      <span class="legend-item"><i class="dot dot-assigned"></i>Assigned Homework?</span>
+      <span class="legend-item"><i class="dot dot-completed"></i>Completed Homework</span>
+      <span class="legend-item"><i class="dot dot-meets"></i>Meets Expectations</span>
+    </div>
+
+    <div class="grid" id="studentGrid" aria-live="polite"></div>
+  </section>
+
+</main>
+
+<!-- reports drawer -->
+<div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+<aside class="drawer" id="reportsDrawer" hidden aria-label="Student reports">
+  <div class="drawer-head">
+    <div>
+      <p class="muted">Behavioral Report For...</p>
+      <h3 id="drawerStudentName">—</h3>
+    </div>
+    <button class="icon-btn" id="closeDrawerBtn" aria-label="Close report">✕</button>
+  </div>
+
+  <form id="reportForm">
+    <textarea id="reportText" rows="3" placeholder="Write a quick observation… it saves automatically."></textarea>
+    <button type="submit" class="btn btn-primary btn-small">Save Report</button>
+  </form>
+
+  <div class="report-list" id="reportList">
+    <p class="muted empty-report">Outstanding!</p>
+  </div>
+</aside>
+
+<!-- footer / export -->
+<footer class="footer" id="footerBar" hidden>
+  <div class="footer-inner">
+    <p class="muted footer-text">Export this week's reports!</p>
+    <a class="btn btn-primary" id="exportBtn" href="#">Export this week to Excel</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
